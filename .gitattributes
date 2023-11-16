@@ -1,1 +1,60 @@
-Content/8KVolcanoLandscapePack/Materials/Magmatic_Rock/Magmatic_Rock_Normal.uasset filter=lfs diff=lfs merge=lfs -text
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your vote counts!</title>
+</head>
+<body>
+    <h1>How does this song make you feel?</h1>
+    
+    <div id="imageContainer">
+        <img src="image1.jpg" id="image1">
+        <img src="image2.jpg" id="image2">
+        <img src="image3.jpg" id="image3">
+        <img src="image4.jpg" id="image4">
+        <img src="image5.jpg" id="image5">
+        <img src="image6.jpg" id="image6">
+    </div>
+    
+    <p>Click on a picture to vote for it:</p>
+    
+    <div id="voteCount">
+        <!-- Vote count will be displayed here -->
+    </div>
+
+    <script>
+        const images = document.querySelectorAll("img");
+        const voteCount = {};
+
+        images.forEach(image => {
+            image.addEventListener("click", function() {
+                const imageId = this.id;
+                if (voteCount[imageId]) {
+                    voteCount[imageId]++;
+                } else {
+                    voteCount[imageId] = 1;
+                }
+                updateVoteCount();
+            });
+        });
+
+        function updateVoteCount() {
+            const voteCountElement = document.getElementById("voteCount");
+            voteCountElement.innerHTML = "Vote count:<br>";
+            for (const imageId in voteCount) {
+                voteCountElement.innerHTML += `${imageId}: ${voteCount[imageId]}<br>`;
+            }
+
+            // Find the image with the most votes
+            let mostVotedImage = Object.keys(voteCount)[0];
+            for (const imageId in voteCount) {
+                if (voteCount[imageId] > voteCount[mostVotedImage]) {
+                    mostVotedImage = imageId;
+                }
+            }
+            
+            voteCountElement.innerHTML += `<br>Most Voted: ${mostVotedImage}`;
+        }
+    </script>
+</body>
+</html>
+
